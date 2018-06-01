@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.teknosama.rating.Rating">
+
+    <ImageView
+        android:id="@+id/images"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="43dp"
+        app:srcCompat="@android:drawable/ic_lock_lock"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <RatingBar
+        android:id="@+id/customerRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/storeLocation"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/storeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/images"
+        android:layout_alignStart="@+id/images"
+        android:layout_below="@+id/images"
+        android:layout_marginLeft="33dp"
+        android:layout_marginStart="33dp"
+        android:text="Store Name" />
+
+    <TextView
+        android:id="@+id/storeLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/storeName"
+        android:layout_alignStart="@+id/storeName"
+        android:layout_below="@+id/storeName"
+        android:layout_marginTop="15dp"
+        android:text="Store Location" />
+
+    <EditText
+        android:id="@+id/customerComment"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:layout_below="@+id/customerRating"
+        android:layout_alignLeft="@+id/customerRating"
+        android:layout_alignStart="@+id/customerRating" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/images"
+        android:layout_alignStart="@+id/images"
+        android:layout_below="@+id/customerComment"
+        android:layout_marginTop="11dp"
+        android:text="Button" />
+
+</RelativeLayout>
