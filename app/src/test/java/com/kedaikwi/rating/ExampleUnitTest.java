@@ -1,4 +1,4 @@
-package com.teknosama.rating;
+package com.kedaikwi.rating;
 
 import org.junit.Test;
 

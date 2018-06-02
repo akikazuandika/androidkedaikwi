@@ -1,15 +1,11 @@
-package com.teknosama.rating;
+package com.kedaikwi.rating;
 
-import android.app.VoiceInteractor;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,10 +17,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,26 +35,44 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button btn = findViewById(R.id.buttonLogin);
+        Button btnToRegister = findViewById(R.id.btnToRegister);
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login(v);
-            }
-        });
-
+        //On user has been login, redirect to Stores Activity
         try {
             JSONObject getInfo = getInfo();
             if(getInfo.getString("email").equals("")){
 
             }else{
-                Intent intent = new Intent(MainActivity.this, Rating.class);
+                Intent intent = new Intent(MainActivity.this, Stores.class);
                 startActivity(intent);
                 finish();
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        //When user click Register Button, redirect to Register Activity
+        btnToRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(MainActivity.this, Register.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }, 500);
+            }
+        });
+
+        //On user click Login Button
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login(v);
+            }
+        });
 
     }
 
@@ -70,35 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String URL = "http://192.168.43.174/ratingkedaikwi/api/login";
-
-//        JsonObjectRequest objectRequest = new JsonObjectRequest(
-//                Request.Method.GET,
-//                URL,
-//                null,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        try {
-//
-//                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//
-//                            builder.setMessage(response.getString("message"));
-//
-//                            AlertDialog alert = builder.create();
-//                            alert.show();
-//
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Log.e("Rest response ", error.toString());
-//                    }
-//                }
-//        );
 
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
@@ -122,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Intent intent = new Intent(MainActivity.this, Rating.class);
+                                        Intent intent = new Intent(MainActivity.this, Stores.class);
                                         startActivity(intent);
                                         finish();
                                     }
@@ -165,26 +148,6 @@ public class MainActivity extends AppCompatActivity {
         };
 
         requestQueue.add(stringRequest);
-
-//        if(email.getText().toString().equals("akikazuandika@gmail.com") && password.getText().toString().equals("andika")){
-//            Snackbar.make(v, "Logged In", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null)
-//                    .show();
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Intent intent = new Intent(MainActivity.this, Rating.class);
-//                    intent.putExtra(message, email.getText().toString());
-//                    startActivity(intent);
-//                    finish();
-//                }
-//            }, SPLASH_TIME_OUT);
-//
-//        }else{
-//            Snackbar.make(v, "Wrong username or password. ", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null)
-//                    .show();
-//        }
     }
 
     public void saveLogin(String email, String name, String address){

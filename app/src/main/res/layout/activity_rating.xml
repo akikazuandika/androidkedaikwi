@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.teknosama.rating.Rating">
+    tools:context="com.kedaikwi.rating.Rating">
 
     <ImageView
         android:id="@+id/images"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="41dp"
         app:srcCompat="@android:drawable/ic_lock_lock"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -53,16 +53,17 @@
         android:inputType="textMultiLine"
         android:layout_below="@+id/customerRating"
         android:layout_alignLeft="@+id/customerRating"
-        android:layout_alignStart="@+id/customerRating" />
+        android:layout_alignStart="@+id/customerRating"
+        android:layout_alignRight="@+id/customerRating"
+        android:layout_alignEnd="@+id/customerRating" />
 
     <Button
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/images"
-        android:layout_alignStart="@+id/images"
+        android:layout_marginTop="12dp"
+        android:text="Save"
         android:layout_below="@+id/customerComment"
-        android:layout_marginTop="11dp"
-        android:text="Button" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

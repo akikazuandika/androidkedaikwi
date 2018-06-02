@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.kedaikwi.rating.Register">
+
+    <EditText
+        android:id="@+id/inputName"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginLeft="73dp"
+        android:layout_marginStart="73dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/inputName"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/inputName"
+        android:layout_marginTop="24dp"
+        android:text="Name" />
+
+    <EditText
+        android:id="@+id/inputEmail"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignEnd="@+id/inputName"
+        android:layout_alignRight="@+id/inputName"
+        android:layout_below="@+id/inputName"
+        android:layout_marginTop="36dp"
+        android:ems="10"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/inputPassword"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/inputEmail"
+        android:layout_alignStart="@+id/inputEmail" />
+
+    <EditText
+        android:id="@+id/inputPasswordConfirm"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_below="@+id/textView5"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignStart="@+id/textView5" />
+
+    <EditText
+        android:id="@+id/inputAddress"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:layout_alignEnd="@+id/inputPasswordConfirm"
+        android:layout_alignRight="@+id/inputPasswordConfirm"
+        android:layout_below="@+id/inputPasswordConfirm"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/inputAddress"
+        android:layout_alignLeft="@+id/inputAddress"
+        android:layout_alignRight="@+id/inputAddress"
+        android:layout_alignStart="@+id/inputAddress"
+        android:layout_below="@+id/inputAddress"
+        android:layout_marginTop="22dp"
+        android:text="Register" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/inputEmail"
+        android:layout_alignStart="@+id/inputEmail"
+        android:layout_below="@+id/inputName"
+        android:layout_marginTop="15dp"
+        android:text="Email" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/inputPassword"
+        android:layout_alignStart="@+id/inputPassword"
+        android:layout_below="@+id/inputEmail"
+        android:layout_marginTop="17dp"
+        android:text="Password" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/inputPassword"
+        android:layout_alignStart="@+id/inputPassword"
+        android:layout_centerVertical="true"
+        android:text="Confirm Password" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/inputAddress"
+        android:layout_alignStart="@+id/inputAddress"
+        android:layout_below="@+id/inputPasswordConfirm"
+        android:layout_marginTop="13dp"
+        android:text="Address" />
+
+</RelativeLayout>

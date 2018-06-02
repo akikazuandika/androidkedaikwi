@@ -1,4 +1,4 @@
-package com.teknosama.rating;
+package com.kedaikwi.rating;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.teknosama.rating", appContext.getPackageName());
+        assertEquals("com.kedaikwi.rating", appContext.getPackageName());
     }
 }
