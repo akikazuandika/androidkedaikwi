@@ -56,13 +56,14 @@ public class Rating extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle extras = getIntent().getExtras();
-        String id = extras.getString("ID");
+        final String id = extras.getString("ID");
+        final String rateType = extras.getString("rateType");
         SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
 
         email = sharedPreferences.getString("email", "");
 
         if(!id.equals("")){
-            getStore("1");
+            getStore(id);
         }
 
         custRating = findViewById(R.id.customerRating);
@@ -78,11 +79,11 @@ public class Rating extends AppCompatActivity {
                         customerComment = findViewById(R.id.customerComment);
 
                         try {
-                            obj.put("id_store", "1");
+                            obj.put("id_store", id);
                             obj.put("email_customer", email);
                             obj.put("value", rating);
                             obj.put("comment", customerComment.getText().toString());
-                            obj.put("type_rate", "rating_product");
+                            obj.put("type_rate", rateType);
 
                             save(v, obj);
                         } catch (JSONException e) {
