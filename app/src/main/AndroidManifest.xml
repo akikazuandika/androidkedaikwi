@@ -7,28 +7,33 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="Kedai KWI"
+        android:roundIcon="@mipmap/ic_launcher_round_backup"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="Login">
+            android:label="Kedai KWI">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".Rating">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kedaikwi.rating.Stores" />
+            android:name=".Rating"
+            android:parentActivityName="com.kedaikwi.rating.MainActivity" >
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value="com.kedaikwi.rating.Stores" />-->
         </activity>
         <activity
             android:name=".Register"
-            android:label="Register"></activity>
+            android:label="Register"
+            android:parentActivityName="com.kedaikwi.rating.MainActivity" >
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value="com.kedaikwi.rating.MainActivity" />-->
+        </activity>
         <activity
             android:name=".Stores"
             android:label="Stores"></activity>

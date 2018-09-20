@@ -34,13 +34,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btn = findViewById(R.id.buttonLogin);
-        Button btnToRegister = findViewById(R.id.btnToRegister);
+        Button btn = (Button) findViewById(R.id.buttonLogin);
+        Button btnToRegister = (Button) findViewById(R.id.btnToRegister);
 
         //On user has been login, redirect to Stores Activity
         try {
             JSONObject getInfo = getInfo();
-            if(getInfo.getString("email").equals("")){
+            if(getInfo.getString("telp").equals("")){
 
             }else{
                 Intent intent = new Intent(MainActivity.this, Stores.class);
@@ -77,11 +77,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void login(final View v){
-        final EditText email = findViewById(R.id.email);
-        final EditText password = findViewById(R.id.password);
+        final EditText telp = (EditText) findViewById(R.id.telp);
+        final EditText password = (EditText) findViewById(R.id.password);
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String URL = "http://192.168.43.174/ratingkedaikwi/api/login";
+        String URL = getResources().getString(R.string.api) + "login";
 
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                                         .setAction("Action", null)
                                         .show();
 
-                                saveLogin(data.getString("email").toString(), data.getString("name").toString(), data.getString("address").toString());
+                                saveLogin(data.getString("telp").toString(), data.getString("name").toString());
 
                                 int SPLASH_TIME_OUT = 500;
                                 new Handler().postDelayed(new Runnable() {
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
-                parameters.put("email", email.getText().toString());
+                parameters.put("telp", telp.getText().toString());
                 parameters.put("password", password.getText().toString());
 
                 return parameters;
@@ -150,12 +150,12 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    public void saveLogin(String email, String name, String address){
+    public void saveLogin(String telp, String name){
         SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("email", email);
+        editor.putString("telp", telp);
         editor.putString("name", name);
-        editor.putString("address", address);
+        editor.putInt("login", 0);
         editor.apply();
     }
 
@@ -164,9 +164,8 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
 
-        obj.put("email", sharedPreferences.getString("email", ""));
+        obj.put("telp", sharedPreferences.getString("telp", ""));
         obj.put("name", sharedPreferences.getString("name", ""));
-        obj.put("address", sharedPreferences.getString("address", ""));
 
         return obj;
     }

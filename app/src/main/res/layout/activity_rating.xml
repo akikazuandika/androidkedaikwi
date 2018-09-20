@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.kedaikwi.rating.Rating">
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/images"
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -19,51 +21,56 @@
         android:id="@+id/customerRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:layout_below="@+id/storeLocation"
+
+        android:theme="@style/RatingBar"
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/storeName"
         android:layout_centerHorizontal="true" />
 
     <TextView
+        android:textSize="18dp"
         android:id="@+id/storeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/images"
-        android:layout_alignStart="@+id/images"
-        android:layout_below="@+id/images"
         android:layout_marginLeft="33dp"
-        android:layout_marginStart="33dp"
-        android:text="Store Name" />
+        android:text="Store Name"
+        android:textColor="@color/cyan"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/images"
+        android:layout_centerHorizontal="true" />
 
     <TextView
+        android:textSize="18dp"
         android:id="@+id/storeLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/storeName"
-        android:layout_alignStart="@+id/storeName"
-        android:layout_below="@+id/storeName"
-        android:layout_marginTop="15dp"
-        android:text="Store Location" />
+        android:textStyle="bold"
+        android:textColor="@color/blueMaterial"
+        android:text="Store Location"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/customerComment"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:id="@+id/customerComment"
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_marginTop="14dp"
+        android:layout_height="50dp"
         android:ems="10"
         android:inputType="textMultiLine"
         android:layout_below="@+id/customerRating"
-        android:layout_alignLeft="@+id/customerRating"
-        android:layout_alignStart="@+id/customerRating"
-        android:layout_alignRight="@+id/customerRating"
-        android:layout_alignEnd="@+id/customerRating" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp" />
 
     <Button
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:text="Save"
-        android:layout_below="@+id/customerComment"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_button"
+        android:layout_marginBottom="57dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

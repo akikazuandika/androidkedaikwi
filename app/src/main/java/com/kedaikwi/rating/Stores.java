@@ -1,11 +1,21 @@
 package com.kedaikwi.rating;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -39,10 +49,18 @@ public class Stores extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stores);
 
-//        btn = findViewById(R.id.button2);
+        SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        int login = sharedPreferences.getInt("login", 0);
+
+        showWelcomeDialog();
+        if(login < 1){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("login", 1);
+            editor.apply();
+        }
 
         RequestQueue req = Volley.newRequestQueue(this);
-        String url = "http://192.168.43.174/ratingkedaikwi/api/store";
+        String url = getResources().getString(R.string.api) + "store";
 
         JsonObjectRequest jsonReq = new JsonObjectRequest(
                 Request.Method.GET,
@@ -81,58 +99,68 @@ public class Stores extends AppCompatActivity {
         };
 
         req.add(jsonReq);
+    }
 
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Intent intent = new Intent(Stores.this, Rating.class);
-//                        intent.putExtra("ID", "1");
-//                        startActivity(intent);
-//                    }
-//                }, 100);
-//            }
-//        });
+    protected void showWelcomeDialog(){
+        AlertDialog.Builder dialog =  new AlertDialog.Builder(this);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        String name = sharedPreferences.getString("name", "");
+        String arrName[] = name.split(" ");
+
+        dialog.setTitle("Welcome " + arrName[0]);
+        RelativeLayout layoutLogo = new RelativeLayout(this);
+        ImageView logo = new ImageView(this);
+        logo.setImageResource(R.mipmap.ic_launcher);
+        layoutLogo.addView(logo);
+        dialog.setView(layoutLogo);
+
+        AlertDialog alertDialog = dialog.create();
+        alertDialog.show();
+        alertDialog.getWindow().setLayout(600,600);
+
     }
 
     protected void createView(final JSONObject data) throws JSONException {
-        LinearLayout mainWrapper = findViewById(R.id.mainWrapper);
+        LinearLayout mainWrapper = (LinearLayout) findViewById(R.id.mainWrapper);
         RelativeLayout relativeLayout = new RelativeLayout(this);
-        relativeLayout.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 260));
+        relativeLayout.setBackgroundColor(Color.parseColor("#ffffff"));
+        RelativeLayout.LayoutParams layoutParamsMain = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 300);
+        layoutParamsMain.setMargins(0,0,0,10);
+        relativeLayout.setLayoutParams(layoutParamsMain);
 
-        ImageView  image = new ImageView(this);
-        LoadImageFromWebOperations(data.getString("image"), image);
-        RelativeLayout.LayoutParams layoutParamsImage = new RelativeLayout.LayoutParams(300, 300);
-        image.setLayoutParams(layoutParamsImage);
-        int imageId = View.generateViewId();
-        image.setId(imageId);
-
+        //Text Store Name
         TextView storeName = new TextView(this);
+        storeName.setTextSize(17);
         storeName.setText(data.getString("store_name"));
+        storeName.setTextColor(getResources().getColor(R.color.blue));
+        storeName.setTypeface(null, Typeface.BOLD);
         RelativeLayout.LayoutParams layoutParamsStoreName = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        layoutParamsStoreName.addRule(RelativeLayout.RIGHT_OF, imageId);
-        layoutParamsStoreName.setMargins(0, 20, 0, 0);
+        layoutParamsStoreName.setMargins(20, 60, 0, 0);
         storeName.setLayoutParams(layoutParamsStoreName);
         int storeNameId = View.generateViewId();
         storeName.setId(storeNameId);
 
+        //Text Location
         TextView storeLocation = new TextView(this);
+        storeLocation.setTextSize(17);
+        storeLocation.setTextColor(getResources().getColor(R.color.blueMaterial));
         storeLocation.setText(data.getString("store_location"));
         RelativeLayout.LayoutParams layoutParamsStoreLocation = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        layoutParamsStoreLocation.addRule(RelativeLayout.BELOW, storeNameId);
-        layoutParamsStoreLocation.addRule(RelativeLayout.RIGHT_OF, imageId);
-        layoutParamsStoreLocation.setMargins(0, 50, 0, 0);
+        layoutParamsStoreLocation.setMargins(20, 140, 0, 0);
         storeLocation.setLayoutParams(layoutParamsStoreLocation);
 
+        //Rate product
         Button ratingProduct = new Button(this);
+//        ratingProduct.setBackgroundColor(getResources().getColor(R.color.cyan));
+        ratingProduct.setBackground(getResources().getDrawable(R.drawable.rounded_button));
+        ratingProduct.setTextColor(getResources().getColor(R.color.white));
         ratingProduct.setId(Integer.parseInt(data.getString("id_store")));
         ratingProduct.setText("Product");
         RelativeLayout.LayoutParams layoutParamsRatingProduct = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         layoutParamsRatingProduct.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         layoutParamsRatingProduct.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        layoutParamsRatingProduct.setMargins(0, 10, 20, 0);
+        layoutParamsRatingProduct.setMargins(0, 30, 20, 0);
         ratingProduct.setLayoutParams(layoutParamsRatingProduct);
         ratingProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,12 +181,16 @@ public class Stores extends AppCompatActivity {
             }
         });
 
+        //Rate Service
         Button ratingService = new Button(this);
+//        ratingService.setBackgroundColor(getResources().getColor(R.color.blue));
+        ratingService.setBackground(getResources().getDrawable(R.drawable.rounded_button));
         ratingService.setId(Integer.parseInt(data.getString("id_store")));
         ratingService.setText("Service");
+        ratingService.setTextColor(getResources().getColor(R.color.white));
         RelativeLayout.LayoutParams layoutParamsRartingService = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         layoutParamsRartingService.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        layoutParamsRartingService.setMargins(0, 130, 20, 0);
+        layoutParamsRartingService.setMargins(0, 180, 20, 20);
         ratingService.setLayoutParams(layoutParamsRartingService);
         ratingService.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,11 +211,18 @@ public class Stores extends AppCompatActivity {
             }
         });
 
-        relativeLayout.addView(image);
         relativeLayout.addView(storeName);
         relativeLayout.addView(storeLocation);
         relativeLayout.addView(ratingProduct);
         relativeLayout.addView(ratingService);
+
+        View viewDivider = new View(this);
+        float dividerHeight = getResources().getDisplayMetrics().density * 1; // 1dp to pixels
+        RelativeLayout.LayoutParams dividerParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) dividerHeight);
+        viewDivider.setLayoutParams(dividerParams);
+        viewDivider.setBackgroundColor(Color.parseColor("#cccccc"));
+        relativeLayout.addView(viewDivider);
+
         mainWrapper.addView(relativeLayout);
     }
 

@@ -2,18 +2,19 @@
 <RelativeLayout
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="@color/blue"
+    android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_main">
 
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/telp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="95dp"
         android:ems="10"
-        android:inputType="textEmailAddress"
+        android:inputType="text"
+        android:gravity="center"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/textView6"
         android:layout_alignStart="@+id/textView6" />
@@ -24,8 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:ems="10"
+        android:gravity="center"
         android:inputType="textPassword"
-        android:layout_below="@+id/email"
+        android:layout_below="@+id/telp"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -33,10 +35,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/password"
-        android:layout_alignLeft="@+id/email"
-        android:layout_alignStart="@+id/email"
+        android:layout_alignLeft="@+id/telp"
+        android:layout_alignStart="@+id/telp"
         android:layout_marginBottom="43dp"
-        android:text="Email" />
+        android:text="No Telp" />
 
     <TextView
         android:id="@+id/textView6"
@@ -50,10 +52,13 @@
 
     <Button
         android:id="@+id/buttonLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="38dp"
+        android:gravity="center"
         android:text="Login"
+        android:background="@drawable/rounded_button"
+        android:textColor="@color/white"
         android:layout_below="@+id/password"
         android:layout_centerHorizontal="true" />
 
@@ -68,12 +73,14 @@
 
     <Button
         android:id="@+id/btnToRegister"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="19dp"
         android:text="Daftar"
         android:layout_below="@+id/textView8"
         android:layout_alignLeft="@+id/buttonLogin"
+        android:background="@drawable/rounded_button"
+        android:textColor="@color/white"
         android:layout_alignStart="@+id/buttonLogin" />
 
 </RelativeLayout>

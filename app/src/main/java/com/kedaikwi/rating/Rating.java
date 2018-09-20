@@ -3,7 +3,10 @@ package com.kedaikwi.rating;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.ContactsContract;
@@ -12,10 +15,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -45,7 +50,7 @@ public class Rating extends AppCompatActivity {
 
     Button save;
     RatingBar custRating;
-    String email;
+    String telp;
     EditText customerComment;
 
     @Override
@@ -60,27 +65,33 @@ public class Rating extends AppCompatActivity {
         final String rateType = extras.getString("rateType");
         SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
 
-        email = sharedPreferences.getString("email", "");
+        telp = sharedPreferences.getString("telp", "");
 
         if(!id.equals("")){
             getStore(id);
         }
 
-        custRating = findViewById(R.id.customerRating);
-        save = findViewById(R.id.btnSave);
+        custRating = (RatingBar) findViewById(R.id.customerRating);
+        save = (Button) findViewById(R.id.btnSave);
 
         custRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, final float rating, boolean fromUser) {
+                RatingBar ratingBar1 = (RatingBar) findViewById(R.id.customerRating);
+                LayerDrawable stars = (LayerDrawable) ratingBar1.getProgressDrawable();
+                stars.getDrawable(2).setColorFilter(getResources().getColor(R.color.ratingYellow), PorterDuff.Mode.SRC_ATOP);
+                stars.getDrawable(1).setColorFilter(getResources().getColor(R.color.ratingYellow), PorterDuff.Mode.SRC_ATOP);
+                stars.getDrawable(0).setColorFilter(getResources().getColor(R.color.grey), PorterDuff.Mode.SRC_ATOP);
+
                 save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         JSONObject obj = new JSONObject();
-                        customerComment = findViewById(R.id.customerComment);
+                        customerComment = (EditText) findViewById(R.id.customerComment);
 
                         try {
                             obj.put("id_store", id);
-                            obj.put("email_customer", email);
+                            obj.put("telp", telp);
                             obj.put("value", rating);
                             obj.put("comment", customerComment.getText().toString());
                             obj.put("type_rate", rateType);
@@ -101,7 +112,7 @@ public class Rating extends AppCompatActivity {
 
     protected void getStore(String id){
         RequestQueue req = Volley.newRequestQueue(this);
-        String URL = "http://192.168.43.174/ratingkedaikwi/api/store/id/" + id;
+        String URL = getResources().getString(R.string.api) + "store/id/" + id;
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -112,9 +123,9 @@ public class Rating extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject results = new JSONObject(response.getString("results"));
-                            TextView storeName = findViewById(R.id.storeName);
-                            TextView storeLocation = findViewById(R.id.storeLocation);
-                            ImageView image = findViewById(R.id.images);
+                            TextView storeName = (TextView) findViewById(R.id.storeName);
+                            TextView storeLocation =(TextView) findViewById(R.id.storeLocation);
+                            ImageView image = (ImageView) findViewById(R.id.images);
 
                             storeName.setText(results.getString("store_name"));
                             storeLocation.setText(results.getString("store_location"));
@@ -142,7 +153,7 @@ public class Rating extends AppCompatActivity {
 
     protected void save(final View v, final JSONObject data){
         RequestQueue reqQue = Volley.newRequestQueue(this);
-        String url = "http://192.168.43.174/ratingkedaikwi/api/store/rate";
+        String url = getResources().getString(R.string.api) + "store/rate";
 
         StringRequest strReq = new StringRequest(
                 Request.Method.POST,
@@ -197,7 +208,7 @@ public class Rating extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 try {
                     params.put("id_store", data.getString("id_store"));
-                    params.put("email_customer", data.getString("email_customer"));
+                    params.put("telp", data.getString("telp"));
                     params.put("value", data.getString("value"));
                     params.put("comment", data.getString("comment"));
                     params.put("type_rate", data.getString("type_rate"));

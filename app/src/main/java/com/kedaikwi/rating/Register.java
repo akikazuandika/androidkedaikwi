@@ -27,18 +27,19 @@ import java.util.Map;
 public class Register extends AppCompatActivity {
 
     EditText inputName;
-    EditText inputEmail;
     EditText inputPassword;
     EditText inputPasswordConfirm;
-    EditText inputAddress;
+    EditText inputTelp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        Button btnRegister = findViewById(R.id.btnRegister);
-        inputPassword = findViewById(R.id.inputPassword);
-        inputPasswordConfirm = findViewById(R.id.inputPasswordConfirm);
+
+
+        Button btnRegister = (Button) findViewById(R.id.btnRegister);
+        inputPassword = (EditText) findViewById(R.id.inputPassword);
+        inputPasswordConfirm =(EditText) findViewById(R.id.inputPasswordConfirm);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,14 +64,13 @@ public class Register extends AppCompatActivity {
 
     protected void register(final View v){
 
-        inputName = findViewById(R.id.inputName);
-        inputEmail = findViewById(R.id.inputEmail);
-        inputPassword = findViewById(R.id.inputPassword);
-        inputPasswordConfirm = findViewById(R.id.inputPasswordConfirm);
-        inputAddress = findViewById(R.id.inputAddress);
+        inputName =(EditText) findViewById(R.id.inputName);
+        inputPassword =(EditText) findViewById(R.id.inputPassword);
+        inputPasswordConfirm =(EditText) findViewById(R.id.inputPasswordConfirm);
+        inputTelp =(EditText) findViewById(R.id.inputTelp);
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String URL = "http://192.168.43.174/ratingkedaikwi/api/register";
+        String URL = getResources().getString(R.string.api) + "register";
 
         StringRequest strReq = new StringRequest(
                 Request.Method.POST,
@@ -121,10 +121,9 @@ public class Register extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
-                parameters.put("email", inputEmail.getText().toString());
                 parameters.put("password", inputPassword.getText().toString());
                 parameters.put("name", inputName.getText().toString());
-                parameters.put("address", inputAddress.getText().toString());
+                parameters.put("telp", inputTelp.getText().toString());
 
                 return parameters;
             }
